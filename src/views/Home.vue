@@ -12,6 +12,9 @@ import baseMixins from '@/mixins/baseMixins'
 
 export default {
   name: 'home',
+  data() {
+    return {}
+  },
   mixins: [baseMixins],
   mounted() {},
   components: {}
