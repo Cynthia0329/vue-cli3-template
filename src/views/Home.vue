@@ -9,6 +9,7 @@
 
 <script>
 import baseMixins from '@/mixins/baseMixins'
+import * as api from '@/api'
 
 export default {
   name: 'home',
@@ -16,7 +17,11 @@ export default {
     return {}
   },
   mixins: [baseMixins],
-  mounted() {},
+  mounted() {
+    api.common.test().then(res => {
+      console.log(res)
+    })
+  },
   components: {}
 }
 </script>
