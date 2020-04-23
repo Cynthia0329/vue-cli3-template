@@ -1,6 +1,6 @@
 import axios from 'axios'
 import qs from 'qs'
-// import { Message } from 'view-design'
+import { Message } from 'element-ui'
 
 // 创建axios实例
 const service = axios.create({
@@ -36,7 +36,7 @@ service.interceptors.request.use(
     return config
   }, 
   error => {
-    // Message.error('当前网络异常，请稍后再试！')
+    Message.error('当前网络异常，请稍后再试！')
     console.error(error)
     return Promise.reject(error)
   }
@@ -45,8 +45,11 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
   res => {
-    if (res.status > 400) {
-      console.error(errorMsgMap[error.res.status])
+    if (res.data.errCode != 0) {
+      Message({
+        type: 'error',
+        message: res.data.msg || 'Error',
+      })
       return Promise.reject('error')
     } 
     else {
@@ -58,7 +61,7 @@ service.interceptors.response.use(
       }
     }
   }, error => {
-    // Message.error('当前网络异常，请稍后再试！')
+    Message.error('当前网络异常，请稍后再试！')
     console.error(error)
     return Promise.reject(error)
   }
