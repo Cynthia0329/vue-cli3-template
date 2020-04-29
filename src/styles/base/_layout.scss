@@ -1,0 +1,107 @@
+
+
+.fl { float: left; }
+.fr { float: right; }
+
+.tl { text-align: left; }
+.tr { text-align: right; }
+
+// 清除内边距
+.p0 {
+  padding: 0 !important;
+}
+
+// 外边距和内边距
+@for $i from 0 through 100{
+  .mr#{$i}{
+    margin-right:1px * $i !important; 
+  }
+  .ml#{$i} {
+    margin-left: 1px * $i !important;
+  }
+  .mt#{$i} {
+    margin-top: 1px * $i !important;
+  }
+  .mb#{$i} {
+    margin-bottom: 1px * $i !important;
+  }
+  .pr#{$i}{
+    padding-right:1px * $i !important; 
+  }
+  .pl#{$i} {
+    padding-left: 1px * $i !important;
+  }
+  .pt#{$i} {
+    padding-top: 1px * $i !important;
+  }
+  .pb#{$i} {
+    padding-bottom: 1px * $i !important;
+  }
+}
+
+
+/* flex水平 */
+
+// 使flex布局的子元素 水平顺序排列 垂直居中显示
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+// 使flex布局的子元素 水平从左排列 垂直居中显示
+.left {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+// 使flex布局的子元素 水平从右排列 垂直居中显示
+.right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+// 使flex布局的子元素 水平顺序排列 垂直顶端对齐显示
+.top {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+// 使flex布局的子元素 水平顺序排列（分散剩余空间） 垂直顶端对齐显示
+.sp-between {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content:space-around; 
+}
+
+/* flex垂直 */
+
+// 使flex布局的子元素 整体垂直从上到下排列 水平居中显示
+.columnTop {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+// 使flex布局的子元素 整体垂直居中 水平居左显示
+.columnLeft {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+// 使flex布局的子元素 整体垂直居中 水平居中显示
+.columnCenter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 绝对定位 */
+
+.middle { // 垂直居中
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
