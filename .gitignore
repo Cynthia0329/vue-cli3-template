@@ -1,6 +1,8 @@
 .DS_Store
 node_modules
 /dist
+/dist-test
+/dist-prod
 /测试文件夹
 
 # local env files
