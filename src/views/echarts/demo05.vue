@@ -22,18 +22,22 @@ export default {
         },
         legend: {
           orient: "vertical",
-          left: 10,
+          icon: 'circle',
+          right: 50,
+          top: '10%',
           data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "搜索引擎"]
         },
         series: [
           {
             name: "访问来源",
             type: "pie",
+            radius: '50%',
+            center: ['35%', '30%'],
             avoidLabelOverlap: false,
             emphasis: {
               label: {
                 show: true,
-                fontSize: "30",
+                fontSize: "14",
                 fontWeight: "bold"
               }
             },

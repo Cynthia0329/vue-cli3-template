@@ -28,3 +28,75 @@
   - 生产打包时，输出打包分析
 - 增加通用sass样式
 
+
+
+## echarts示例
+
+### 官网demo要点
+
+#### 示例01
+
+https://echarts.apache.org/examples/zh/editor.html?c=bar-stack
+
+- 柱状堆叠图：多组
+- markLine：这个demo的指向很有意思
+
+### 分类
+
+
+
+### 未分类
+
+#### demo03
+
+> 标域markArea
+
+- 标域的颜色和主题色的顺序保持一致
+
+
+
+
+
+
+
+#### demo05
+
+> 饼图
+
+- 饼图的大小和位置
+- 图例的形状
+
+
+
+
+
+#### demo06
+
+> 柱状图
+
+- Y轴百分号保留两位小数
+
+
+
+#### demo07
+
+> 简单的堆叠柱状图，只有一组
+>
+> 多组可参考官方demo：https://echarts.apache.org/examples/zh/editor.html?c=bar-stack
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

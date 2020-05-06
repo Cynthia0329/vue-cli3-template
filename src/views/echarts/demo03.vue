@@ -1,10 +1,6 @@
 <template>
   <div class="echarts-block">
     <h3>标域markArea</h3>
-    <details>
-      <summary>笔记：</summary>
-      <p>1. 标域的颜色和主题色的顺序保持一致</p>
-    </details>
     <v-chart :options="echartsOption1" />
   </div>
 </template>

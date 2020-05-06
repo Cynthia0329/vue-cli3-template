@@ -45,6 +45,16 @@ export default new Router({
           name: 'demo05',
           component: () => import('@/views/echarts/demo05'),
         },
+        {
+          path: 'demo06',
+          name: 'demo06',
+          component: () => import('@/views/echarts/demo06'),
+        },
+        {
+          path: 'demo07',
+          name: 'demo07',
+          component: () => import('@/views/echarts/demo07'),
+        },
       ]
     }
   ]
