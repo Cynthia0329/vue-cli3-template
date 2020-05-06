@@ -24,7 +24,17 @@ export default new Router({
           path: 'line01',
           name: 'line01',
           component: () => import('@/views/echarts/line01'),
-        }
+        },
+        {
+          path: 'line02',
+          name: 'line02',
+          component: () => import('@/views/echarts/line02'),
+        },
+        {
+          path: 'demo03',
+          name: 'demo03',
+          component: () => import('@/views/echarts/demo03'),
+        },
       ]
     }
   ]
