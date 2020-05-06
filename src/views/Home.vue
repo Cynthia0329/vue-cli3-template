@@ -1,11 +1,13 @@
 <template>
   <div class="home">
     <h1 class="mb50">主页面</h1>
-    <ul>
+    <ul class="mb50">
       <li><router-link :to="{path:'/subpage'}">子页面</router-link></li>
       <li><router-link :to="{path:'/echarts'}">echarts</router-link></li>
     </ul>
-    <div class="test">？？</div>
+    <span>夜间模式</span>
+    <el-switch v-model="isNight" active-text="" inactive-text="">
+    </el-switch>
   </div>
 </template>
 
@@ -16,7 +18,18 @@ export default {
   name: 'home',
   mixins: [baseMixins],
   data() {
-    return {}
+    return {
+      isNight: false
+    }
+  },
+  watch: {
+    isNight: function (val) { // 根据主题开关，切换不同的属性名来切换主题
+      if (val) {
+        window.document.documentElement.setAttribute('data-theme', 'theme-night')
+      } else {
+        window.document.documentElement.setAttribute('data-theme', 'theme-sun')
+      }
+    },
   },
   mounted() {},
   components: {}
@@ -24,5 +37,10 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-// 此处删掉会导致scss无法统一引入
+.home {
+  @include layout_bg_color;
+}
+h1,a,span {
+  @include font_icon_color_black;
+}
 </style>

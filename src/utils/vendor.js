@@ -11,8 +11,9 @@ import Vue from 'vue'
 // 按需引入element-ui
 // https://element.eleme.cn/#/zh-CN/component/quickstart
 import 'element-ui/lib/theme-chalk/index.css'
-import { Message } from 'element-ui'
+import { Message, Switch } from 'element-ui'
 Vue.prototype.$message = Message
+Vue.use(Switch)
 
 // 引入vue-echarts
 import ECharts from 'vue-echarts/components/ECharts.vue'
