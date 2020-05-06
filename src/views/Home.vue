@@ -1,8 +1,9 @@
 <template>
   <div class="home">
-    <h1>整个项目的主页面入口</h1>
-    <ul class="catalog">
-      <li><router-link :to="{path:'/base'}">基本图表组件页面</router-link></li>
+    <h1 class="mb50">主页面</h1>
+    <ul>
+      <li><router-link :to="{path:'/subpage'}">子页面</router-link></li>
+      <li><router-link :to="{path:'/echarts'}">echarts</router-link></li>
     </ul>
   </div>
 </template>
@@ -12,17 +13,14 @@ import baseMixins from '@/mixins/baseMixins'
 
 export default {
   name: 'home',
+  mixins: [baseMixins],
   data() {
     return {}
   },
-  mixins: [baseMixins],
   mounted() {},
   components: {}
 }
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-.catalog {
-  list-style: none;
-}
 </style>

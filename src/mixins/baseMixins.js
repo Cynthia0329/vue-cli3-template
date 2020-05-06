@@ -1,7 +1,8 @@
 import storeMixins from './storeMixins.js'
+import echartsMixins from './echartsMixins.js'
 
 export default {
-  mixins: [storeMixins],
+  mixins: [storeMixins, echartsMixins],
   data() {
     return {}
   },

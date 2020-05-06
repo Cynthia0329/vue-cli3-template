@@ -11,9 +11,21 @@ export default new Router({
       component: () => import('@/views/Home.vue')
     },
     {
-      path: '/base',
-      name: 'base',
-      component: () => import('@/views/base-charts')
+      path: '/subpage',
+      name: 'subpage',
+      component: () => import('@/views/subpage')
+    },
+    {
+      path: '/echarts',
+      name: 'echarts',
+      component: () => import('@/views/echarts'),
+      children: [
+        {
+          path: 'line',
+          name: 'echarts-line',
+          component: () => import('@/views/echarts/line'),
+        }
+      ]
     }
   ]
 })
