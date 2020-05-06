@@ -1,6 +1,10 @@
 <template>
-  <div class="echarts-block mt30">
+  <div class="echarts-block">
     <h3>标域markArea</h3>
+    <details>
+      <summary>笔记：</summary>
+      <p>1. 标域的颜色和主题色的顺序保持一致</p>
+    </details>
     <v-chart :options="echartsOption1" />
   </div>
 </template>
@@ -60,12 +64,38 @@ export default {
             name: "预购",
             type: "line",
             smooth: false,
+            markArea: {
+              silent: true,
+              data: [
+                [
+                  {
+                    xAxis: "周三"
+                  },
+                  {
+                    xAxis: "周四"
+                  }
+                ]
+              ]
+            },
             data: [30, 182, 434, 791, 390, 30, 10]
           },
           {
             name: "意向",
             type: "line",
             smooth: false,
+            markArea: {
+              silent: true,
+              data: [
+                [
+                  {
+                    xAxis: "周五"
+                  },
+                  {
+                    xAxis: "周六"
+                  }
+                ]
+              ]
+            },
             data: [1320, 1132, 601, 234, 120, 90, 20]
           }
         ]

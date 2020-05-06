@@ -21,19 +21,29 @@ export default new Router({
       component: () => import('@/views/echarts'),
       children: [
         {
-          path: 'line01',
-          name: 'line01',
-          component: () => import('@/views/echarts/line01'),
+          path: 'demo01',
+          name: 'demo01',
+          component: () => import('@/views/echarts/demo01'),
         },
         {
-          path: 'line02',
-          name: 'line02',
-          component: () => import('@/views/echarts/line02'),
+          path: 'demo02',
+          name: 'demo02',
+          component: () => import('@/views/echarts/demo02'),
         },
         {
           path: 'demo03',
           name: 'demo03',
           component: () => import('@/views/echarts/demo03'),
+        },
+        {
+          path: 'demo04',
+          name: 'demo04',
+          component: () => import('@/views/echarts/demo04'),
+        },
+        {
+          path: 'demo05',
+          name: 'demo05',
+          component: () => import('@/views/echarts/demo05'),
         },
       ]
     }
