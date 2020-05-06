@@ -1,6 +1,6 @@
 <template>
-  <div class="echarts-block">
-    <h3>线性图表</h3>
+  <div class="echarts-block mt30">
+    <h3>最简单的线性图表</h3>
     <v-chart :options="echartsOption" />
   </div>
 </template>
@@ -37,4 +37,5 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
+// 
 </style>

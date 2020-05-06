@@ -5,6 +5,7 @@
       <li><router-link :to="{path:'/subpage'}">子页面</router-link></li>
       <li><router-link :to="{path:'/echarts'}">echarts</router-link></li>
     </ul>
+    <div class="test">？？</div>
   </div>
 </template>
 
@@ -23,4 +24,5 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
+// 此处删掉会导致scss无法统一引入
 </style>

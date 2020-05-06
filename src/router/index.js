@@ -21,9 +21,9 @@ export default new Router({
       component: () => import('@/views/echarts'),
       children: [
         {
-          path: 'line',
-          name: 'echarts-line',
-          component: () => import('@/views/echarts/line'),
+          path: 'line01',
+          name: 'line01',
+          component: () => import('@/views/echarts/line01'),
         }
       ]
     }
