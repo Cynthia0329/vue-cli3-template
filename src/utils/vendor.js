@@ -8,12 +8,21 @@ import Vue from 'vue'
 // import lodash from 'lodash'
 // Vue.prototype.$lodash = lodash
 
+// 滚动条组件
+import EaScrollbar from '@/components/scrollbar/index.js'
+Vue.use(EaScrollbar)
+
 // 按需引入element-ui
 // https://element.eleme.cn/#/zh-CN/component/quickstart
 import 'element-ui/lib/theme-chalk/index.css'
-import { Message, Switch } from 'element-ui'
+import { 
+  Message, 
+  Switch, 
+  Scrollbar, 
+} from 'element-ui'
 Vue.prototype.$message = Message
 Vue.use(Switch)
+Vue.use(Scrollbar)
 
 // 引入vue-echarts
 import ECharts from 'vue-echarts/components/ECharts.vue'

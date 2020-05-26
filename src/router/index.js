@@ -56,6 +56,11 @@ export default new Router({
           component: () => import('@/views/echarts/demo07'),
         },
       ]
-    }
+    },
+    {
+      path: '/scroll',
+      name: 'scroll',
+      component: () => import('@/views/scroll')
+    },
   ]
 })

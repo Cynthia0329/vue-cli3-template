@@ -1,9 +1,10 @@
 <template>
   <div class="home">
     <h1 class="mb50">主页面</h1>
-    <ul class="mb50">
+    <ul class="fl">
       <li><router-link :to="{path:'/subpage'}">子页面</router-link></li>
       <li><router-link :to="{path:'/echarts'}">echarts</router-link></li>
+      <li><router-link :to="{path:'/scroll'}">滚动条</router-link></li>
     </ul>
     <span>夜间模式</span>
     <el-switch v-model="isNight" active-text="" inactive-text="">
@@ -39,6 +40,7 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 .home {
   @include layout_bg_color;
+  padding: 50px 50px;
 }
 h1,a,span {
   @include font_icon_color_black;

@@ -21,14 +21,8 @@ export default {
         legend: {
           bottom: 0
         },
-        toolbox: {
-          show: true,
-          feature: {
-            dataView: { show: true, readOnly: false },
-            magicType: { show: true, type: ["line", "bar"] },
-            restore: { show: true },
-            saveAsImage: { show: true }
-          }
+        grid: {
+          top: '5%',
         },
         xAxis: [
           {

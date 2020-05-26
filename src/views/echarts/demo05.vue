@@ -1,7 +1,7 @@
 <template>
   <div class="echarts-block">
     <h3>饼图</h3>
-    <v-chart :options="echartsOption1" />
+    <v-chart :options="echartsOption1"/>
   </div>
 </template>
 

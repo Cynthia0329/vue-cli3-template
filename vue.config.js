@@ -40,6 +40,7 @@ module.exports = {
     // 自定义alias名称
     config.resolve.alias
     .set('@', resolve('src'))
+    .set('img', resolve('src/assets/img'))
 
     // js输出配置
     if (process.env.NODE_ENV === 'prod' || process.env.NODE_ENV === 'test') {
