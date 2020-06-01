@@ -1,7 +1,9 @@
 // 配置参考：https://cli.vuejs.org/zh/config/
+const webpack = require('webpack')
 
 const Timestamp = new Date().getTime() // 时间戳
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin  // 打包分析插件
+const CompressionWebpackPlugin = require("compression-webpack-plugin") // gzip压缩插件
 
 // 解析文件路径
 const path = require('path')
@@ -26,6 +28,8 @@ module.exports = {
     before: app => {}
   },
   css: {
+    // 提取css代码到单独的css文件
+    extract: true,
     // css预设器配置项
     loaderOptions: {
       //设置css中引用文件的路径，引入通用使用的scss文件
@@ -48,9 +52,6 @@ module.exports = {
       config.output.filename(filename).chunkFilename(filename)
     }
 
-    // css输出配置
-    // （使用：extract-text-webpack-plugin，待）
-
     // 图片输出配置
     config.module.rule('images')
       .test(/\.(png|jpe?g|gif|webp)(\?.*)?$/)
@@ -71,5 +72,33 @@ module.exports = {
     if (process.env.NODE_ENV === 'prod') {
       config.plugin('webpack-report').use(BundleAnalyzerPlugin, [{ analyzerMode: 'static' }])
     }
+
+    // 压缩js
+    config.optimization.minimize(true)
+    // 分割代码：分成多个进行加载，可以达到最快化
+    config.optimization.splitChunks({
+      chunks: 'all'
+    })
   },
+  configureWebpack: config => {
+    if (process.env.NODE_ENV === 'test' || (process.env.NODE_ENV === 'prod')) {
+      // 识别出具有重复模块的 chunk，并优先进行合并
+      config.plugins.push(  
+        new webpack.optimize.LimitChunkCountPlugin({
+          maxChunks: 5
+        })
+      )
+      // 开启gzip压缩
+      config.plugins.push(  
+        new CompressionWebpackPlugin({
+          filename: "[path].gz[query]",
+          algorithm: "gzip",
+          test: /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i, //匹配文件名
+          threshold: 10240, //对超过10k的数据压缩
+          deleteOriginalAssets: false, //删除原文件
+          minRatio: 0.8,   // 只有压缩率小于这个值的资源才会被处理
+        })
+      )
+    }
+  }
 }
