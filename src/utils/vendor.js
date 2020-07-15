@@ -8,6 +8,10 @@ import Vue from 'vue'
 // import lodash from 'lodash'
 // Vue.prototype.$lodash = lodash
 
+// 引入自定义工具函数文件
+import * as utils from '@/utils'
+Vue.prototype.utils = utils
+
 // 滚动条组件
 import EaScrollbar from '@/components/scrollbar/index.js'
 Vue.use(EaScrollbar)
