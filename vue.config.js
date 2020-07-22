@@ -5,6 +5,8 @@ const Timestamp = new Date().getTime() // 时间戳
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin  // 打包分析插件
 const CompressionWebpackPlugin = require("compression-webpack-plugin") // gzip压缩插件
 
+const IS_PROD = ['prod', 'test'].includes(process.env.NODE_ENV)
+
 // 解析文件路径
 const path = require('path')
 function resolve (dir) {
@@ -28,15 +30,18 @@ module.exports = {
     before: app => {}
   },
   css: {
-    // 提取css代码到单独的css文件
-    extract: true,
+    // 是否使用css分离插件:提取css代码到单独的css文件
+    extract: IS_PROD,
+    // 开启 CSS source maps?
+    sourceMap: false,
     // css预设器配置项
     loaderOptions: {
       //设置css中引用文件的路径，引入通用使用的scss文件
       sass: {
         data: `@import "@/styles/index.scss";`
       }
-    }
+    },
+    modules: false,
   },
   chainWebpack: config => {
     // 修复热更新失效（保险设置）
