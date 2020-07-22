@@ -55,7 +55,17 @@ export default new Router({
           name: 'demo07',
           component: () => import('@/views/echarts/demo07'),
         },
+        {
+          path: 'demo08',
+          name: 'demo08',
+          component: () => import('@/views/echarts/demo08'),
+        },
       ]
+    },
+    {
+      path: '/theme',
+      name: 'theme',
+      component: () => import('@/views/theme')
     },
     {
       path: '/scroll',
