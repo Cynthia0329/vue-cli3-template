@@ -8,6 +8,19 @@ import Vue from 'vue'
 // import lodash from 'lodash'
 // Vue.prototype.$lodash = lodash
 
+// 日期格式化插件
+// import moment from 'moment'
+// Vue.use(moment)
+// Vue.prototype.$moment = moment
+
+// 全局引入LocalStorage方法
+// import {setLocalStorage, getLocalStorage} from '@/utils/localStorage'
+// Vue.prototype.$setLocalStorage = setLocalStorage
+// Vue.prototype.$getLocalStorage = getLocalStorage
+
+// 引入摘要组件
+import  '@/components/popup/index.js'
+
 // 引入自定义工具函数文件
 import * as utils from '@/utils'
 Vue.prototype.utils = utils
@@ -23,10 +36,22 @@ import {
   Message, 
   Switch, 
   Scrollbar, 
+  Tabs, 
+  TabPane,
+  RadioGroup,
+  RadioButton,
+  Card,
+  Button,
 } from 'element-ui'
 Vue.prototype.$message = Message
 Vue.use(Switch)
 Vue.use(Scrollbar)
+Vue.use(Tabs)
+Vue.use(TabPane)
+Vue.use(RadioGroup)
+Vue.use(RadioButton)
+Vue.use(Card)
+Vue.use(Button)
 
 // 引入vue-echarts
 import ECharts from 'vue-echarts/components/ECharts.vue'

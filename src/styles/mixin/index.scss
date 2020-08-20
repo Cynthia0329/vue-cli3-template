@@ -1,3 +1,13 @@
 // 定义mixin方法的文件
 
 @import './_theme';
+
+// 文字超过xx行省略显示
+@mixin ellipsis_lines($line) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $line;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

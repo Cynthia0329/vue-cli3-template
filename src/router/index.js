@@ -19,48 +19,6 @@ export default new Router({
       path: '/echarts',
       name: 'echarts',
       component: () => import('@/views/echarts'),
-      children: [
-        {
-          path: 'demo01',
-          name: 'demo01',
-          component: () => import('@/views/echarts/demo01'),
-        },
-        {
-          path: 'demo02',
-          name: 'demo02',
-          component: () => import('@/views/echarts/demo02'),
-        },
-        {
-          path: 'demo03',
-          name: 'demo03',
-          component: () => import('@/views/echarts/demo03'),
-        },
-        {
-          path: 'demo04',
-          name: 'demo04',
-          component: () => import('@/views/echarts/demo04'),
-        },
-        {
-          path: 'demo05',
-          name: 'demo05',
-          component: () => import('@/views/echarts/demo05'),
-        },
-        {
-          path: 'demo06',
-          name: 'demo06',
-          component: () => import('@/views/echarts/demo06'),
-        },
-        {
-          path: 'demo07',
-          name: 'demo07',
-          component: () => import('@/views/echarts/demo07'),
-        },
-        {
-          path: 'demo08',
-          name: 'demo08',
-          component: () => import('@/views/echarts/demo08'),
-        },
-      ]
     },
     {
       path: '/theme',

@@ -1,10 +1,17 @@
 
+.hide{ display:none !important;}
+.show{ display:block !important;}
+.fl{ float: left;}
+.fr{ float: right;}
+.tl{text-align:left!important}
+.tc{text-align:center!important}
+.tr{text-align:right!important}
+.pr{position:relative}
 
-.fl { float: left; }
-.fr { float: right; }
-
-.tl { text-align: left; }
-.tr { text-align: right; }
+// 清除浮动
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { *zoom: 1; /*IE/7/6*/ }
 
 // 清除内边距
 .p0 {
@@ -54,6 +61,10 @@
   justify-content: flex-start;
   align-items: center;
 }
+// 使flex布局中的 部分元素 向右浮动
+.flex-item-right {
+  margin-left: auto;
+}
 // 使flex布局的子元素 水平从右排列 垂直居中显示
 .right {
   display: flex;
@@ -66,8 +77,15 @@
   justify-content: center;
   align-items: flex-start;
 }
-// 使flex布局的子元素 水平顺序排列（分散剩余空间） 垂直顶端对齐显示
+// 使flex布局的子元素 水平顺序排列（分散剩余空间,两边无空隙） 垂直顶端对齐显示
 .sp-between {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content:space-between; 
+}
+// 使flex布局的子元素 水平顺序排列（分散剩余空间，两边有空隙） 垂直顶端对齐显示
+.sp-around {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -104,4 +122,10 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.ellipsis-line {  // 单行文字溢出省略显示
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }

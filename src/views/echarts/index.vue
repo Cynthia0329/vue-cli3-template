@@ -1,32 +1,37 @@
 <template>
   <div>
-    <h3 class="mb50">echarts图表</h3>
-    <router-link :to="{path:'/'}">回到主页</router-link>
-    <ul class="fl">
-        <li class="m15"><router-link :to="{path:'/echarts/demo01'}">1. 最简单的线性图表</router-link></li>
-        <li class="m15"><router-link :to="{path:'/echarts/demo02'}">2. 多条折线图堆叠</router-link></li>
-        <li class="m15"><router-link :to="{path:'/echarts/demo03'}">3. 标域markArea 1️⃣</router-link></li>
-        <li class="m15"><router-link :to="{path:'/echarts/demo04'}">4. 环形图</router-link></li>
-        <li class="m15"><router-link :to="{path:'/echarts/demo05'}">5. 饼图 2️⃣</router-link></li>
-        <li class="m15"><router-link :to="{path:'/echarts/demo06'}">6. 柱状图 3️⃣</router-link></li>
-        <li class="m15"><router-link :to="{path:'/echarts/demo07'}">7. 简答的堆叠柱状图 4️⃣</router-link></li>
-        <li class="m15"><router-link :to="{path:'/echarts/demo08'}">8. 全球地图</router-link></li>
-    </ul>
-    <div class="fl ml30">
-      <router-view></router-view>
+    <div class="title left">
+      <router-link :to="{path:'/'}" class="mr20">主页</router-link>
+      <h2>echarts图表</h2>
+    </div>
+    <div class="main">
+      <div class="sidebar">
+        <el-tabs tab-position="left" v-model="activeType">
+          <el-tab-pane label="综合小组件" name="Composite"></el-tab-pane>
+          <el-tab-pane label="折线图 Line" name="echartLine"></el-tab-pane>
+          <el-tab-pane label="柱状图 Bar" name="echartBar"></el-tab-pane>
+          <el-tab-pane label="饼图 Pie" name="echartPie"></el-tab-pane>
+        </el-tabs>
+      </div>
+      <component :is="activeType" class="block"></component>
     </div>
   </div>
 </template>
 
 <script>
 import baseMixins from '@/mixins/baseMixins'
+import echartLine from './Line'
 
 export default {
   mixins: [baseMixins],
-  components: {},
+  components: {
+    echartLine,
+  },
   props: [],
   data() {
-    return {}
+    return {
+      activeType: 'echartLine',
+    }
   },
   computed: {},
   watch: {},
@@ -36,5 +41,30 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-// 
+.main {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+}
+.title {
+  padding: 10px 20px;
+  border-bottom: 1px solid #eeeeee;
+}
+.sidebar {
+  height: calc(100vh - 54px);
+  flex: 0 0 200px;
+  /deep/ .el-tabs{
+    height: 100%;
+  }
+  /deep/ .el-tabs__header {
+    width: 100%;
+  }
+  /deep/ .el-tabs__content {
+    display: none;
+  }
+}
+.block {
+  flex: 1;
+  padding: 20px;
+}
 </style>
