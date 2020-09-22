@@ -30,5 +30,15 @@ export default new Router({
       name: 'scroll',
       component: () => import('@/views/scroll')
     },
+    {
+      path: '/onStorage',
+      name: 'onStorage',
+      component: () => import('@/views/onStorage')
+    },
+    {
+      path: '/detail',
+      name: 'detail',
+      component: () => import('@/views/demo/components/detail')
+    },
   ]
 })
