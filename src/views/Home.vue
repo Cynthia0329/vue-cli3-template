@@ -5,9 +5,8 @@
       <li><router-link :to="{path:'/subpage'}">跳转空的子页面</router-link></li>
       <li><router-link :to="{path:'/echarts'}">echarts</router-link></li>
       <li><router-link :to="{path:'/theme'}">切换主题</router-link></li>
-      <li><router-link :to="{path:'/scroll'}">滚动条</router-link></li>
+      <li><router-link :to="{path:'/components-demo'}">组件demo演示</router-link></li>
       <li><router-link :to="{path:'/onStorage'}">利用onStorage，浏览器标签页之间通信</router-link></li>
-      <li @click="tt()">弹窗组件</li>
     </ul>
   </div>
 </template>
@@ -23,11 +22,7 @@ export default {
   },
   mounted() {},
   components: {},
-  methods: {
-    tt() {
-      this.$popup()
-    }
-  }
+  methods: {}
 }
 </script>
 

@@ -26,9 +26,9 @@ export default new Router({
       component: () => import('@/views/theme')
     },
     {
-      path: '/scroll',
-      name: 'scroll',
-      component: () => import('@/views/scroll')
+      path: '/components-demo',
+      name: 'components-demo',
+      component: () => import('@/views/components-demo')
     },
     {
       path: '/onStorage',
@@ -38,7 +38,7 @@ export default new Router({
     {
       path: '/detail',
       name: 'detail',
-      component: () => import('@/views/demo/components/detail')
+      component: () => import('@/views/onStorage/components/detail')
     },
   ]
 })
