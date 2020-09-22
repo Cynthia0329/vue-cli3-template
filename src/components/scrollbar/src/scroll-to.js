@@ -1,3 +1,4 @@
+// 组件源地址：https://asseek.gitee.io/e-admin/#/scrollbar
 const cubic = value => Math.pow(value, 3);
 const easeInOutCubic = value => value < 0.5
   ? cubic(value * 2) / 2

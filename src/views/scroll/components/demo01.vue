@@ -7,7 +7,7 @@
         </li>
       </ul>
     </el-scrollbar>
-    <p class="note">适合数据较少的情况</p>
+    <p class="note">适合数据较少的情况，滚动条的大小随数据的条数变化</p>
   </div>
 </template>
 
