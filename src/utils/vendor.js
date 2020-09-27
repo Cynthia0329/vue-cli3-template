@@ -42,6 +42,10 @@ import {
   RadioButton,
   Card,
   Button,
+  Menu,
+  Submenu,
+  MenuItem,
+  MenuItemGroup,
 } from 'element-ui'
 Vue.prototype.$message = Message
 Vue.use(Switch)
@@ -52,6 +56,10 @@ Vue.use(RadioGroup)
 Vue.use(RadioButton)
 Vue.use(Card)
 Vue.use(Button)
+Vue.use(Menu)
+Vue.use(Submenu)
+Vue.use(MenuItem)
+Vue.use(MenuItemGroup)
 
 // 引入vue-echarts
 import ECharts from 'vue-echarts/components/ECharts.vue'
