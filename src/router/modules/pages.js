@@ -1,18 +1,20 @@
 
 const pages = [
   {
-    path: '/index',
-    name: 'index',
-    hidden: false,
-    component: () => import('@/views/index'),
-    meta: { title: '首页', hasSubMenu: false },
-  },
-  {
     path: '/echarts',
     name: 'echarts',
     hidden: false,
     component: () => import('@/views/echarts'),
-    meta: { title: '图表', hasSubMenu: false },
+    meta: { title: '图表', hasSubMenu: true },
+    children: [
+      {
+        path: '/echarts/demo03',
+        name: 'demo03',
+        hidden: false,
+        component: () => import('@/views/echarts/demo03'),
+        meta: { title: 'demo03', hasSubMenu: false },
+      }
+    ]
   },
   {
     path: '/theme',

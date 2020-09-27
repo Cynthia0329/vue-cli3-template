@@ -1,18 +1,6 @@
 <template>
   <div>
-    <div class="title left">
-      <router-link :to="{path:'/'}" class="mr20">主页</router-link>
-      <h2>echarts图表</h2>
-    </div>
     <div class="main">
-      <div class="sidebar">
-        <el-tabs tab-position="left" v-model="activeType">
-          <el-tab-pane label="综合小组件" name="Composite"></el-tab-pane>
-          <el-tab-pane label="折线图 Line" name="echartLine"></el-tab-pane>
-          <el-tab-pane label="柱状图 Bar" name="echartBar"></el-tab-pane>
-          <el-tab-pane label="饼图 Pie" name="echartPie"></el-tab-pane>
-        </el-tabs>
-      </div>
       <component :is="activeType" class="block"></component>
     </div>
   </div>

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import pages from '@/router/modules/pages'
+import {constantRoutes} from '@/router'
 import SidebarItem from './SidebarItem'
 
 export default {
@@ -24,21 +24,21 @@ export default {
   props: {},
   data() {
     return {
-      routes: pages
+      routes: constantRoutes
     }
   },
   computed: {
-    activeMenu() {
-      const route = this.$route
-      const { meta, path } = route
-      if (meta.activeMenu) {
-        return meta.activeMenu
-      }
-      return path
-    },
+    // activeMenu() {
+    //   const route = this.$route
+    //   const { meta, path } = route
+    //   if (meta.activeMenu) {
+    //     return meta.activeMenu
+    //   }
+    //   return path
+    // },
   },
   mounted() {
-    console.log(this.$route.path)
+    console.log(this.routes)
   },
   methods: {
     handleSelect(key, keyPath) {
