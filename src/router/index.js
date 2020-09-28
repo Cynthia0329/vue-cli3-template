@@ -1,9 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+Vue.use(Router)
 
 import Layout from '@/layout'
 
-Vue.use(Router)
+/* Router Modules */
+import echartsRouter from './modules/echarts'
+
 
 export const constantRoutes = [
   {
@@ -20,40 +23,7 @@ export const constantRoutes = [
       },
     ]
   },
-  {
-    path: '/echarts',
-    component: Layout,
-    hidden: false,
-    meta: { title: '图表', hasSubMenu: true },
-    children: [
-      {
-        path: '/echarts/index',
-        hidden: false,
-        component: () => import('@/views/echarts'),
-        meta: { title: '图表主页', hasSubMenu: false },
-      },
-      {
-        path: '/echarts/demo03',
-        hidden: false,
-        component: () => import('@/views/echarts/demo03'),
-        meta: { title: 'demo03', hasSubMenu: false },
-      },
-      {
-        path: '/echarts/line',
-        hidden: false,
-        component: () => import('@/views/echarts/Line'),
-        meta: { title: '折线图表', hasSubMenu: true },
-        children: [
-          {
-            path: '/echarts/line/Line01',
-            hidden: false,
-            component: () => import('@/views/echarts/Line/Line01'),
-            meta: { title: 'Line01', hasSubMenu: false },
-          }
-        ]
-      },
-    ]
-  },
+  echartsRouter,
   {
     path: '/theme/index',
     component: Layout,
