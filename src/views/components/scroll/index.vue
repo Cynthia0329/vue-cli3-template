@@ -1,7 +1,6 @@
 <template>
   <div>
-    <h3 class="mb100">子页面</h3>
-    <router-link :to="{path:'/'}">回到主页</router-link>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -13,7 +12,7 @@ export default {
   data() {
     return {}
   },
-  // mounted() {},
+  mounted() {},
   methods: {}
 }
 </script>

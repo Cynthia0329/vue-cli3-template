@@ -1,5 +1,7 @@
 <template>
-  <div>综合组件示例页</div>
+  <div>
+    <el-button type="primary" @click="tt()">点击测试</el-button>
+  </div>
 </template>
 
 <script>
@@ -11,7 +13,11 @@ export default {
     return {}
   },
   mounted() {},
-  methods: {}
+  methods: {
+    tt() {
+      this.$popup()
+    }
+  }
 }
 </script>
 

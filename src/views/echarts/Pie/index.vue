@@ -10,9 +10,7 @@ export default {
   components: {},
   props: [],
   data() {
-    return {
-      activeType: 'all'
-    }
+    return {}
   },
   mounted() {},
   methods: {}
@@ -20,13 +18,5 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-/deep/ .el-radio-group {
-  margin-top: 20px;
-}
-.tabs {
-  border: 1px solid #000;
-}
-.card-group {
-  border: 1px solid #000;
-}
+// 
 </style>

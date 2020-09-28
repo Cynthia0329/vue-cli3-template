@@ -1,6 +1,6 @@
 <template>
   <div>
-    <li @click="tt()">弹窗组件</li>
+    <router-view />
   </div>
 </template>
 
@@ -13,13 +13,10 @@ export default {
     return {}
   },
   mounted() {},
-  methods: {
-    tt() {
-      this.$popup()
-    }
-  }
+  methods: {}
 }
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
+// 
 </style>
