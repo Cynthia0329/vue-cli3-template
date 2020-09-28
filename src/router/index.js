@@ -27,22 +27,40 @@ export const constantRoutes = [
     meta: { title: '图表', hasSubMenu: true },
     children: [
       {
+        path: '/echarts/index',
+        hidden: false,
+        component: () => import('@/views/echarts'),
+        meta: { title: '图表主页', hasSubMenu: false },
+      },
+      {
         path: '/echarts/demo03',
-        name: 'demo03',
         hidden: false,
         component: () => import('@/views/echarts/demo03'),
         meta: { title: 'demo03', hasSubMenu: false },
-      }
+      },
+      {
+        path: '/echarts/line',
+        hidden: false,
+        component: () => import('@/views/echarts/Line'),
+        meta: { title: '折线图表', hasSubMenu: true },
+        children: [
+          {
+            path: '/echarts/line/Line01',
+            hidden: false,
+            component: () => import('@/views/echarts/Line/Line01'),
+            meta: { title: 'Line01', hasSubMenu: false },
+          }
+        ]
+      },
     ]
   },
   {
-    path: '/theme',
+    path: '/theme/index',
     component: Layout,
-    redirect: '/theme/index',
     meta: { title: '切换主题', hasSubMenu: false },
     children: [
       {
-        path: 'index',
+        path: '/theme/index',
         hidden: false,
         component: () => import('@/views/theme'),
         meta: { title: '切换主题', hasSubMenu: false },

@@ -1,7 +1,7 @@
 <template>
   <el-scrollbar wrap-class="scrollbar-wrapper">
     <el-menu
-      :default-active="$route.path"
+      :default-active="activeMenu"
       @select="handleSelect"
       mode="vertical"
     >
@@ -28,21 +28,18 @@ export default {
     }
   },
   computed: {
-    // activeMenu() {
-    //   const route = this.$route
-    //   const { meta, path } = route
-    //   if (meta.activeMenu) {
-    //     return meta.activeMenu
-    //   }
-    //   return path
-    // },
+    activeMenu() {
+      const route = this.$route
+      const { meta, path } = route
+      if (meta.activeMenu) {
+        return meta.activeMenu
+      }
+      return path
+    },
   },
-  mounted() {
-    console.log(this.routes)
-  },
+  mounted() {},
   methods: {
     handleSelect(key, keyPath) {
-      console.log(key)
       this.$router.push(key)
     }
   }
