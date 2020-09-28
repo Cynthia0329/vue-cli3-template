@@ -1,6 +1,5 @@
 <template>
   <div class="echarts-block">
-    <h3>??</h3>
     <v-chart :options="option"/>
   </div>
 </template>
