@@ -32,5 +32,9 @@ export default {
   &>.sider-bar {
     width: 200px;
   }
+  &>.app-main {
+    flex: 1;
+    padding: 50px;
+  }
 }
 </style>

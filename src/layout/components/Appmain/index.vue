@@ -1,5 +1,5 @@
 <template>
-  <div class="app-main">
+  <div>
     <transition name="fade-transform" mode="out-in">
       <!-- <keep-alive> -->
         <router-view :key="key" />
@@ -27,4 +27,5 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
+// 
 </style>
