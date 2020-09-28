@@ -13,9 +13,26 @@ function resolve (dir) {
   return path.join(__dirname, dir)
 }
 
+// 根据环境不同生成不同的打包名字
+function distName(arg) {
+  switch (arg) {
+    case 'dev':
+      return 'dist'
+      break;
+    case 'test':
+      return 'dist-test'
+      break;
+    case 'prod':
+      return 'dist-prod'
+      break;
+  }
+}
+// const distName = process.env.NODE_ENV === "test" ? 'dist-test' : 'dist-prod'
+
 module.exports = {
   publicPath: './', // 基本路径
-  outputDir: process.env.NODE_ENV === "test" ? 'dist-test' : 'dist-prod', // 输出文件目录：不同的环境打不同包名
+  outputDir: distName(process.env.NODE_ENV),
+  // outputDir: process.env.NODE_ENV === "test" ? 'dist-test' : 'dist-prod', // 输出文件目录：不同的环境打不同包名
   assetsDir: 'static',              // 放置生成的静态资源 (js、css、img、fonts) 的 (相对于 outputDir 的) 目录
   lintOnSave: true,                 // 在保存时校验格式
   productionSourceMap: false,       // 生产环境是否生成 SourceMap
