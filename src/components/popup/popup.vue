@@ -36,8 +36,8 @@ export default {
 
 <style lang="scss" scoped>
 .popup {
-  width: 900px;
-  height: 737px;
+  width: 500px;
+  height: 300px;
   background: #eee;
   position: absolute;
   top: 50%;
