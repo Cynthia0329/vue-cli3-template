@@ -46,6 +46,7 @@ import {
   Submenu,
   MenuItem,
   MenuItemGroup,
+  Dialog,
 } from 'element-ui'
 Vue.prototype.$message = Message
 Vue.use(Switch)
@@ -60,6 +61,7 @@ Vue.use(Menu)
 Vue.use(Submenu)
 Vue.use(MenuItem)
 Vue.use(MenuItemGroup)
+Vue.use(Dialog)
 
 // 引入vue-echarts
 import ECharts from 'vue-echarts/components/ECharts.vue'
