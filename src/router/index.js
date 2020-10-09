@@ -8,6 +8,7 @@ import Layout from '@/layout'
 import echartsRouter from './modules/echarts'
 import exampleRouter from './modules/example'
 import componentsRouter from './modules/components'
+import documentsRouter from './modules/documents'
 
 
 export const constantRoutes = [
@@ -28,6 +29,7 @@ export const constantRoutes = [
   componentsRouter,
   echartsRouter,
   exampleRouter,
+  documentsRouter,
   {
     path: '/theme/index',
     component: Layout,

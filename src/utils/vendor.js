@@ -18,6 +18,10 @@ import Vue from 'vue'
 // Vue.prototype.$setLocalStorage = setLocalStorage
 // Vue.prototype.$getLocalStorage = getLocalStorage
 
+// 引入vue-echarts
+import ECharts from 'vue-echarts/components/ECharts.vue'
+Vue.component('v-chart', ECharts)
+
 // 引入摘要组件
 import  '@/components/popup/index.js'
 
@@ -28,6 +32,11 @@ Vue.prototype.utils = utils
 // 滚动条组件
 import EaScrollbar from '@/components/scrollbar/index.js'
 Vue.use(EaScrollbar)
+
+// 引入XLSX
+import XLSX from 'xlsx'
+Vue.use(XLSX)
+
 
 // 按需引入element-ui
 // https://element.eleme.cn/#/zh-CN/component/quickstart
@@ -47,6 +56,7 @@ import {
   MenuItem,
   MenuItemGroup,
   Dialog,
+  Upload,
 } from 'element-ui'
 Vue.prototype.$message = Message
 Vue.use(Switch)
@@ -62,7 +72,4 @@ Vue.use(Submenu)
 Vue.use(MenuItem)
 Vue.use(MenuItemGroup)
 Vue.use(Dialog)
-
-// 引入vue-echarts
-import ECharts from 'vue-echarts/components/ECharts.vue'
-Vue.component('v-chart', ECharts)
+Vue.use(Upload)
