@@ -9,9 +9,9 @@ import Vue from 'vue'
 // Vue.prototype.$lodash = lodash
 
 // 日期格式化插件
-// import moment from 'moment'
-// Vue.use(moment)
-// Vue.prototype.$moment = moment
+import moment from 'moment'
+Vue.use(moment)
+Vue.prototype.$moment = moment
 
 // 全局引入LocalStorage方法
 // import {setLocalStorage, getLocalStorage} from '@/utils/localStorage'

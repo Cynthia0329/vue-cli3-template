@@ -6,9 +6,9 @@ import Layout from '@/layout'
 
 /* Router Modules */
 import echartsRouter from './modules/echarts'
-import exampleRouter from './modules/example'
 import componentsRouter from './modules/components'
 import documentsRouter from './modules/documents'
+import pixiv from './modules/pixiv'
 
 
 export const constantRoutes = [
@@ -26,20 +26,20 @@ export const constantRoutes = [
       },
     ]
   },
+  pixiv,
   componentsRouter,
   echartsRouter,
-  exampleRouter,
   documentsRouter,
   {
-    path: '/theme/index',
+    path: '/test/index',
     component: Layout,
-    meta: { title: '切换主题', hasSubMenu: false },
+    meta: { title: '测试页', hasSubMenu: false },
     children: [
       {
-        path: '/theme/index',
+        path: '/test/index',
         hidden: false,
-        component: () => import('@/views/theme'),
-        meta: { title: '切换主题', hasSubMenu: false },
+        component: () => import('@/views/test'),
+        meta: { title: '切换测试页主题', hasSubMenu: false },
       }
     ]
   },

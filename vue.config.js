@@ -38,12 +38,21 @@ module.exports = {
   productionSourceMap: false,       // 生产环境是否生成 SourceMap
   transpileDependencies: ['webpack-dev-server/client','vue-echarts','resize-detector'],   // 兼容ie：需要编译的依赖包名
   devServer: {
-    open: false, // 启动服务后是否打开浏览器
-    host: '0.0.0.0', // host设置成0.0.0.0，允许内网访问
-    port: 8080, // 服务端口
-    https: false,
-    hotOnly: false,
-    proxy: null,
+    // open: false, // 启动服务后是否打开浏览器
+    // host: '0.0.0.0', // host设置成0.0.0.0，允许内网访问
+    // port: 8080, // 服务端口
+    // https: false,
+    // hotOnly: false,
+    proxy:  {
+      '/proxy': {
+        target: 'https://dic.pixiv.net/api/',  // 外部接口地址
+        // secure: true, // false为http访问，true为https访问
+        changeOrigin: true,   // 是否允许跨域
+        pathRewrite: {  // 重写路径 目的是把/proxy 开始的接口重写 
+          '^/proxy': ''
+        }
+      },
+    },
     before: app => {}
   },
   css: {

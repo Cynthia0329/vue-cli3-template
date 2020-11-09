@@ -4,7 +4,8 @@ import { Message } from 'element-ui'
 
 // 创建axios实例
 const service = axios.create({
-  baseURL: process.env.VUE_APP_URL,
+  baseURL: '/proxy',
+  // baseURL: process.env.VUE_APP_URL,
   timeout: 60000 ,  // 请求超时时间
   withCredentials:false, // 表示跨越请求时是否需要使用凭证（携带cookie）
   headers: { 'Content-Type': 'application/json;charset=UTF-8' }, // 默认消息头
@@ -45,21 +46,7 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
   res => {
-    if (res.data.errCode != 0) {
-      Message({
-        type: 'error',
-        message: res.data.msg || 'Error',
-      })
-      return Promise.reject('error')
-    } 
-    else {
-      if (res.headers['content-type'] == "text/csv") {
-        return res
-      }
-      else {
-        return res.data
-      }
-    }
+    return res.data
   }, error => {
     Message.error('当前网络异常，请稍后再试！')
     console.error(error)
