@@ -4,7 +4,7 @@
       {{ exportData.name }}
     </h3>
     <br>
-    <button type="primary" size="default" v-if="exportData.name" @click="downloadJson">下载数据</button>
+    <button type="primary" size="default" @click="promiseAll">下载数据</button>
   </div>
 </template>
 
@@ -39,9 +39,7 @@ export default {
       ]
     }
   },
-  mounted() {
-    this.promiseAll()
-  },
+  mounted() {},
   methods: {
     async promiseAll() {
       let that = this
@@ -52,10 +50,10 @@ export default {
           this.backupData(res)
         })
     },
-    getTagRead(tagName) {
+    getTagRead(tagName) { // 请求单个tag的阅览量数据
       return api.common.getTagRead(tagName)
     },
-    backupData(data) {
+    backupData(data) {  // 整理备份数据的格式
       // 数据导出备份
       let that = this
       // 得到每个tag对应的最新6个月的数据
@@ -64,7 +62,7 @@ export default {
       })
       let obj = {}
       let date = this.$moment().format('YYYY-MM-DD')
-      let month = this.$moment().format('M')
+      let month = parseInt(this.$moment().format('M'))
       obj.name = `${month - 5}-${month}月P站阅览量`
       obj.getTime = date
       obj.range = {
@@ -73,8 +71,9 @@ export default {
       }
       obj.list = this.exportData
       this.exportData = obj
+      this.downloadJson()
     },
-    downloadJson() {
+    downloadJson() {  // 将json数据导出文件下载
       let date = this.$moment().format('YYYY-MM-DD')
       let data = JSON.stringify(this.exportData)
       // 解决中文乱码
