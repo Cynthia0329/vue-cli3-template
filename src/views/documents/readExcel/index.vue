@@ -1,131 +1,69 @@
 <template>
   <div>
-    <!--limit:最大上传数，on-exceed：超过最大上传数量时的操作  -->
     <el-upload
-      class="upload-demo"
-      action=""
-      :on-change="handleChange"
-      :on-remove="handleRemove"
-      :on-exceed="handleExceed"
-      :limit="limitUpload"
-      accept="application/vnd.openxmlformats-    
-        officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
+      action="/"
+      :on-change="uploadChange"
+      :show-file-list="false"
+      accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
       :auto-upload="false"
     >
-      <el-button size="small" type="primary">点击上传</el-button>
+      <el-button size="small" icon="el-icon-upload" type="primary"
+        >导入数据</el-button
+      >
     </el-upload>
   </div>
 </template>
 
 <script>
+import Xlsx from 'xlsx'
+
 export default {
   mixins: [],
   components: {},
   props: [],
   data() {
-    return {
-      limitUpload: 1
-    }
+    return {}
   },
   mounted() {},
   methods: {
-    //上传文件时处理方法
-    handleChange(file, fileList) {
-      this.fileTemp = file.raw
-      console.log(this.fileTemp)
-      if (this.fileTemp) {
-        if (
-          this.fileTemp.type ==
-            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ||
-          this.fileTemp.type == 'application/vnd.ms-excel'
-        ) {
-          this.importfxx(this.fileTemp)
-        } else {
-          this.$message({
-            type: 'warning',
-            message: '附件格式错误，请删除后重新上传！'
-          })
+    uploadChange(file) {
+      let self = this
+      const types = file.name.split('.')[1]
+      const fileType = ['xlsx', 'xlc', 'xlm', 'xls', 'xlt', 'xlw', 'csv'].some(
+        (item) => {
+          return item === types
         }
-      } else {
-        this.$message({
-          type: 'warning',
-          message: '请上传附件！'
-        })
+      )
+      if (!fileType) {
+        this.$message.error('文件格式错误，请重新选择文件！')
       }
-    },
-    //超出最大上传文件数量时的处理方法
-    handleExceed() {
-      this.$message({
-        type: 'warning',
-        message: '超出最大上传文件数量的限制！'
+
+      this.file2Xce(file).then((tab) => {
+        // 预览输出数据
+        if (tab && tab.length > 0) {
+          console.log(tab[0].sheet)
+        }
       })
-      return
-    },
-    //移除文件的操作方法
-    handleRemove(file, fileList) {
-      this.fileTemp = null
-    },
-    importfxx(obj) {
-      let _this = this
-      let inputDOM = this.$refs.inputer
-      // 通过DOM取文件数据
-
-      this.file = event.currentTarget.files[0]
-
-      var rABS = false //是否将文件读取为二进制字符串
-      var f = this.file
-
-      var reader = new FileReader()
-      //if (!FileReader.prototype.readAsBinaryString) {
-      FileReader.prototype.readAsBinaryString = function (f) {
-        var binary = ''
-        var rABS = false //是否将文件读取为二进制字符串
-        var pt = this
-        var wb //读取完成的数据
-        var outdata
-        var reader = new FileReader()
+    }, // 读取文件
+    file2Xce(file) {
+      return new Promise(function (resolve, reject) {
+        const reader = new FileReader()
         reader.onload = function (e) {
-          var bytes = new Uint8Array(reader.result)
-          var length = bytes.byteLength
-          for (var i = 0; i < length; i++) {
-            binary += String.fromCharCode(bytes[i])
-          }
-          //此处引入，用于解析excel
-          var XLSX = require('xlsx')
-          if (rABS) {
-            wb = XLSX.read(btoa(fixdata(binary)), {
-              //手动转化
-              type: 'base64'
+          const data = e.target.result
+          this.wb = Xlsx.read(data, {
+            type: 'binary'
+          })
+          const result = []
+          this.wb.SheetNames.forEach((sheetName) => {
+            result.push({
+              sheetName: sheetName,
+              sheet: Xlsx.utils.sheet_to_json(this.wb.Sheets[sheetName])
             })
-          } else {
-            wb = XLSX.read(binary, {
-              type: 'binary'
-            })
-          }
-          outdata = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]])
-          //outdata就是读取的数据（不包含标题行即表头，表头会作为对象的下标）
-          //此处可对数据进行处理
-          // let arr = [];
-          // outdata.map(v => {
-          //     let obj = {}
-          //     obj.code = v['Code']
-          //     obj.name = v['Name']
-          //     obj.pro = v['province']
-          //     obj.cit = v['city']
-          //     obj.dis = v['district']
-          //     arr.push(obj)
-          // });
-          // _this.da=arr;
-          // _this.dalen=arr.length;
-          return arr
+          })
+          resolve(result)
         }
-        reader.readAsArrayBuffer(f)
-      }
-      if (rABS) {
-        reader.readAsArrayBuffer(f)
-      } else {
-        reader.readAsBinaryString(f)
-      }
+        reader.readAsBinaryString(file.raw)
+      })
     }
   }
 }
