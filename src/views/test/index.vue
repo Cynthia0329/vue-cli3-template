@@ -1,121 +1,180 @@
 <template>
   <div>
-    <table v-if="tagArr">
-      <thead>
-        <tr>
-          <th>序号</th>
-          <th>tag名字</th>
-          <th>日平均阅览数</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item, index) in tagArr">
-          <td>{{ index+1 }}</td>
-          <td>{{ item.tagName }}</td>
-          <td style="text-align:right"><code>{{ item.Oct_arg }}</code></td>
-        </tr>
-      </tbody>
-    </table>
+    <el-upload
+      action="/"
+      :on-change="uploadChange"
+      :show-file-list="false"
+      accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
+      :auto-upload="false"
+    >
+      <el-button size="small" icon="el-icon-upload" type="primary"
+        >导入数据</el-button
+      >
+    </el-upload>
+    <div class="echarts-block">
+      <v-chart :options="chartData" v-if="chartData" />
+    </div>
   </div>
 </template>
 
 <script>
-import * as api from '@/api'
 import axios from 'axios'
+import XLSX from 'xlsx'
+import transformSheets from './read_xlsx'    //导入转制函数
+import baseMixins from '@/mixins/baseMixins'
+
 export default {
-  mixins: [],
+  mixins: [baseMixins],
   components: {},
   props: [],
   data() {
     return {
-      tagArr: null
+      chartData: null
     }
   },
   mounted() {
-    this.promiseAll()
-    // tags.forEach(name => {
-    //   this.getTagRead(name)
-    // })
+    this.onlyReadFile()
   },
   methods: {
-    async promiseAll() {
-      let tags = [
-        '五悠',
-        '虎伏',
-        '伏虎',
-        '五伏',
-        '五夏',
-        '夏五',
-        '宿伏',
-        '七五',
-        '宿虎',
-        '五棘',
-        '五七',
-        '乙五',
-        '悠五',
-        '七虎',
-        '伏五',
-        '虎宿',
-        '伏乙'
-      ]
-      let that = this
-      axios.all(tags.map(async name => await that.getTagRead(name))).then(res => {
-          let arr = []
-          res.forEach((item, index) => {
-            arr.push(this.handleData(item, tags[index]))
-          })
-          arr.sort((a,b) => {
-            return b.Oct_arg-a.Oct_arg
-          })
-          console.log(arr)
-          this.tagArr = arr
+    uploadChange(file) {
+      let self = this
+      const types = file.name.split('.')[1]
+      const fileType = ['xlsx', 'xlc', 'xlm', 'xls', 'xlt', 'xlw', 'csv'].some(
+        (item) => {
+          return item === types
         }
       )
-    },
-    getTagRead(tagName) {
-      return api.common.getTagRead(tagName)
-    },
-    handleData(res, tagName) {
-      let OctArr = res[res.length - 2]
-      let Oct_arg =
-        OctArr.reduce((prev, curr) => {
-          return prev + curr
-        }) / OctArr.length
-        return {
-          tagName: tagName,
-          Oct_arg: parseInt(Oct_arg)
+      if (!fileType) {
+        this.$message.error('文件格式错误，请重新选择文件！')
+      }
+
+      this.file2Xce(file).then((tab) => {
+        // 预览输出数据
+        if (tab && tab.length > 0) {
+          console.log(tab[0].sheet)
+          let data = tab[0].sheet
+          this.setOption(data)
         }
+      })
+    }, // 读取文件
+    file2Xce(file) {
+      return new Promise(function (resolve, reject) {
+        const reader = new FileReader()
+        reader.onload = function (e) {
+          const data = e.target.result
+          this.wb = XLSX.read(data, {
+            type: 'binary'
+          })
+          const result = []
+          this.wb.SheetNames.forEach((sheetName) => {
+            result.push({
+              sheetName: sheetName,
+              sheet: XLSX.utils.sheet_to_json(this.wb.Sheets[sheetName])
+            })
+          })
+          resolve(result)
+        }
+        reader.readAsBinaryString(file.raw)
+      })
+    },
+    onlyReadFile() {  // 读取本地Excel文件
+      let that = this
+      var url = './lib/test.xlsx' 
+      //读取二进制excel文件,参考https://github.com/SheetJS/js-xlsx#utility-functions
+      axios
+        .get(url, { responseType: 'arraybuffer' })
+        .then((res) => {
+          var data = new Uint8Array(res.data)
+          var wb = XLSX.read(data, { type: 'array' })
+          var sheets = wb.Sheets
+          const result = []
+          wb.SheetNames.forEach((sheetName) => {
+            result.push({
+              sheetName: sheetName,
+              sheet: XLSX.utils.sheet_to_json(wb.Sheets[sheetName])
+            })
+          })
+          let chart_data = result[0].sheet
+           that.setOption(chart_data)
+        })
+        .catch((err) => {
+          console.log(err)
+          console.error('读取文件错误')
+        })
+
+      // this.file2Xce(file).then((tab) => {
+      //   // 预览输出数据
+      //   if (tab && tab.length > 0) {
+      //     console.log(tab[0].sheet)
+      //     let data = tab[0].sheet
+      //     this.setOption(data)
+      //   }
+      // })
+    },
+    setOption(data) {
+      this.chartData = {
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            // 坐标轴指示器，坐标轴触发有效
+            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+          }
+        },
+        legend: {
+          bottom: 0
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          top: '5%',
+          containLabel: true
+        },
+        xAxis: [
+          {
+            type: 'category',
+            data: data.map((i) => i['Tag'])
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value',
+            axisLabel: {
+              show: true,
+              interval: 'auto'
+              // formatter: function (value, index) {
+              //   return value.toFixed(2) + '%'
+              // }
+            },
+            show: true
+          }
+        ],
+        series: [
+          {
+            name: '图',
+            type: 'bar',
+            stack: 'aa',
+            data: data.map((i) => i['图'])
+          },
+          {
+            name: '文',
+            type: 'bar',
+            stack: 'aa',
+            data: data.map((i) => i['文'])
+          },
+          {
+            name: '总',
+            type: 'line',
+            data: data.map((i) => i['总'])
+          }
+        ]
+      }
     }
   }
 }
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-table {
-  border-collapse: collapse;
-  margin-top: 8px;
-  tr {
-    // height: 10px;
-  }
-  td,
-  th {
-    border: 1px solid #23272c;
-    padding: 2px 10px;
-    font-size: 14px;
-    text-align: center;
-    // font-family: 'Microsoft YaHei Mono';
-  }
-  .td-hover a {
-    font-size: 14px;
-    &:hover {
-      background: #0a0a0d;
-      cursor: pointer;
-      text-decoration: underline;
-      color: #2ba3ff;
-    }
-  }
-  .td-hover:hover {
-    background: #0a0a0d;
-  }
+.echarts-block {
+  margin-top: 50px;
 }
 </style>
