@@ -20,6 +20,7 @@
 <script>
 import axios from 'axios'
 import XLSX from 'xlsx'
+import transformSheets from './read_xlsx'    //导入转制函数
 import baseMixins from '@/mixins/baseMixins'
 
 export default {

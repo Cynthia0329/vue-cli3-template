@@ -9,6 +9,7 @@ import echartsRouter from './modules/echarts'
 import componentsRouter from './modules/components'
 import documentsRouter from './modules/documents'
 import pixiv from './modules/pixiv'
+import lofter from './modules/lofter'
 
 
 export const constantRoutes = [
@@ -27,6 +28,7 @@ export const constantRoutes = [
     ]
   },
   pixiv,
+  lofter,
   componentsRouter,
   echartsRouter,
   documentsRouter,

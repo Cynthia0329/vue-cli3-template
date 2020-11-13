@@ -34,7 +34,7 @@ export default {
   }
   &>.app-main {
     flex: 1;
-    padding: 50px;
+    padding: 25px 50px;
   }
 }
 </style>

@@ -8,6 +8,7 @@ import 'echarts/lib/component/title'
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/dataZoom'
 import 'echarts/lib/component/markArea'
+import 'echarts/lib/component/toolbox'
 
 export default {
   methods:{

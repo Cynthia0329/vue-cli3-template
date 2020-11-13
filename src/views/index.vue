@@ -18,7 +18,7 @@ export default {
     return {}
   },
   mounted() {
-    this.$router.replace('/pixiv/data')
+    this.$router.replace('/lofter/character')
   },
   components: {},
   methods: {}
