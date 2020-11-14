@@ -3,6 +3,7 @@
     <div class="echarts-block">
       <v-chart :options="chartData" v-if="chartData" />
     </div>
+    <data-table v-if="tableData" :tableData="tableData"></data-table>
   </div>
 </template>
 
@@ -11,14 +12,18 @@ import axios from 'axios'
 import XLSX from 'xlsx'
 import baseMixins from '@/mixins/baseMixins'
 import * as theme from './theme'
+import dataTable from './dataTable'
 
 export default {
   mixins: [baseMixins],
-  components: {},
+  components: {
+    dataTable
+  },
   props: [],
   data() {
     return {
-      chartData: null
+      chartData: null,
+      tableData: null
     }
   },
   mounted() {
@@ -59,13 +64,19 @@ export default {
       // 获取Excel里的日期数组
       let dateArr = Object.keys(metadata[0])
       dateArr.remove('Tag')
+      chart_data.xAxis = dateArr
 
-      // 截取日期
+      // 根据开始日期截取
       // let startDay = '11/07'
       // dateArr.splice(dateArr.findIndex((i) => i == startDay) + 1)
+      // 根据日期个数截取
+      // dateArr.splice(4)
+
+      // 创建表格
+      this.tableData = metadata
 
       // series数据
-      chart_data = metadata.map((i) => {
+      chart_data.series = metadata.map((i) => {
         let arr = dateArr.map((key, index) => {
           let arr_inner = []
           arr_inner.push('2020/' + key)
@@ -90,13 +101,14 @@ export default {
           type: 'line',
           data: arr,
           label: {
+            fontSize: 10,
             formatter: '{a}: {@[1]}'
           }
         }
         return obj
       })
       // 截取数组，选择显示的个数
-      chart_data.splice(8)
+      chart_data.series.splice(8)
 
       console.log('图表数据为：')
       console.log(chart_data)
@@ -136,7 +148,17 @@ export default {
         },
         xAxis: {
           type: 'time',
+          // maxInterval: 3600 * 24 * 1000 * 1,
+          axisLine: {
+            lineStyle: {
+              color: '#999999',
+            }
+          },
           axisLabel: {
+            color: '#999999',
+            fontSize: 8,
+            interval: 0,
+            rotate: 45,
             formatter: function (value, index) {
               // 格式化成月/日
               var date = new Date(value)
@@ -148,23 +170,30 @@ export default {
             show: false
           }
         },
-        yAxis: [
-          {
-            type: 'value',
+        yAxis: {
+          type: 'value',
+          show: true,
+          splitLine: {
             show: true,
-            // max: 2100,
-            splitLine: {
-              show: true
-            },
-            axisTick: {
-              show: false
-            },
-            axisLine: {
-              show: false
+            lineStyle: {
+              color: '#eeeeee'
+            }
+          },
+          axisTick: {
+            show: false
+          },
+          axisLine: {
+            show: false
+          },
+          axisLabel: {
+            color: '#999999',
+            fontSize: 10,
+            formatter: function (val) {
+              return val
             }
           }
-        ],
-        series: data
+        },
+        series: data.series
       }
     }
   }

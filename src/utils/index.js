@@ -38,38 +38,3 @@ export function NumNorm(val, unit='') {  // 数值通用规范：对于数值非
     return "--"
   }
 }
-
-// export function get_dateList(length, time_stamp, step) {
-//   // 获取日期列表，
-//   var length = length || '3';
-//   var time_stamp = time_stamp || Date.parse(new Date());
-//   var date_list = [];
-//   var step = step || '1'; // 跨度
-//   for (var i = 0; i < length; i++) {
-//       date_list.push(new Date(time_stamp + i * 86400000 * step).getFullYear() + '-' + (new Date(time_stamp + i *
-//           86400000 * step).getMonth() + 1) + '-' + new Date(time_stamp + i * 86400000 * step).getDate());
-//   }
-//   return date_list;
-// }
-
-Date.prototype.addDays = function(days) {
-  var dat = new Date(this.valueOf())
-  dat.setDate(dat.getDate() + days);
-  return dat;
-}
-
-export function getDates(startDate, stopDate) {
- var dateArray = new Array();
- var currentDate = startDate;
- while (currentDate <= stopDate) {
-   dateArray.push(currentDate)
-   currentDate = currentDate.addDays(1);
- }
- return dateArray;
-}
-
-var dateArray = getDates(new Date(), (new Date()).addDays(2));
-
-console.log(dateArray)
-
-
