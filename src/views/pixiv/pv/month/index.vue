@@ -36,7 +36,6 @@ export default {
   },
   mounted() {
     this.tagArr = api.mock.pv
-    console.log(this.tagArr)
   },
   methods: {
     // 计算平均数

@@ -3,87 +3,39 @@
     <div class="echarts-block">
       <v-chart :options="chartData" v-if="chartData" />
     </div>
-    <data-table v-if="tableData" :tableData="tableData"></data-table>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-import XLSX from 'xlsx'
 import baseMixins from '@/mixins/baseMixins'
 import * as theme from '@/styles/theme'
-import dataTable from './dataTable'
 
 export default {
   mixins: [baseMixins],
-  components: {
-    dataTable
-  },
-  props: [],
+  components: {},
+  props: ['data'],
   data() {
     return {
-      chartData: null,
-      tableData: null
+      chartData: null
     }
   },
   mounted() {
-    this.onlyReadFile()
+    this.handleData()
   },
   methods: {
-    // 读取本地Excel文件
-    onlyReadFile() {
-      var url = './lib/lofter.xlsx'
-      axios
-        .get(url, { responseType: 'arraybuffer' })
-        .then((res) => {
-          var data = new Uint8Array(res.data)
-          var wb = XLSX.read(data, { type: 'array' })
-          var sheets = wb.Sheets
-          const result = []
-          wb.SheetNames.forEach((sheetName) => {
-            result.push({
-              sheetName: sheetName,
-              sheet: XLSX.utils.sheet_to_json(wb.Sheets[sheetName])
-            })
-          })
-          this.handleData(result)
-        })
-        .catch((err) => {
-          console.log(err)
-          console.error('读取文件错误')
-        })
-    },
-    handleData(result) {
-      // 选择子表
-      let metadata = result[2].sheet
-      console.log('所选表格元数据为：')
-      console.log(metadata)
-
-      var chart_data = {}
-
-      // 获取Excel里的日期数组
-      let dateArr = Object.keys(metadata[0])
-      dateArr.remove('Tag')
-      chart_data.xAxis = dateArr
-
-      // 根据开始日期截取
-      // let startDay = '11/07'
-      // dateArr.splice(dateArr.findIndex((i) => i == startDay) + 1)
-      // 根据日期个数截取
-      // dateArr.splice(4)
-
-      // 创建表格
-      this.tableData = metadata
+    handleData() {
+      console.log(this.data)
+      let chart = {}
+      chart.xAxis = this.data[0].list.map((i) => `第${i.word}话`)
+      console.log(chart.xAxis)
 
       // series数据
-      chart_data.series = metadata.map((i) => {
-        let arr = dateArr.map((key, index) => {
-          let arr_inner = []
-          arr_inner.push('2020/' + key)
-          arr_inner.push(parseInt(i[key]))
-          if (index === 0) {
+      chart.series = this.data.map((i) => {
+        let arr = chart.xAxis.map((key, index) => {
+          // console.log((chart.xAxis.length-1))
+          if (index === (chart.xAxis.length-1)) {
             return {
-              value: arr_inner,
+              value: i.list[index].arg,
               label: {
                 // show: false,
                 show: true,
@@ -92,12 +44,12 @@ export default {
             }
           } else {
             return {
-              value: arr_inner
+              value: i.list[index].arg
             }
           }
         })
         let obj = {
-          name: i['Tag'],
+          name: i['tag'],
           type: 'line',
           data: arr,
           label: {
@@ -107,13 +59,9 @@ export default {
         }
         return obj
       })
-      console.warn(chart_data.series)
       // 截取数组，选择显示的个数
-      chart_data.series.splice(8)
-
-      console.log('图表数据为：')
-      console.log(chart_data)
-      this.setOption(chart_data)
+      chart.series.splice(10)
+      this.setOption(chart)
     },
     setOption(data) {
       this.chartData = {
@@ -148,11 +96,10 @@ export default {
           containLabel: true
         },
         xAxis: {
-          type: 'time',
-          // maxInterval: 3600 * 24 * 1000 * 1,
+          data: data.xAxis,
           axisLine: {
             lineStyle: {
-              color: '#999999',
+              color: '#999999'
             }
           },
           axisLabel: {
@@ -160,12 +107,6 @@ export default {
             fontSize: 8,
             interval: 0,
             rotate: 45,
-            formatter: function (value, index) {
-              // 格式化成月/日
-              var date = new Date(value)
-              var texts = [date.getMonth() + 1, date.getDate()]
-              return texts.join('/')
-            }
           },
           splitLine: {
             show: false
@@ -210,7 +151,7 @@ $height: $width/$rate;
 
 .echarts-block {
   // margin-top: 50px;
-  margin-bottom: 50px;
+  // margin-bottom: 50px;
   width: $width;
   height: $height;
   border: 1px solid #eeeeee;
