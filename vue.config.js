@@ -44,12 +44,20 @@ module.exports = {
     // https: false,
     // hotOnly: false,
     proxy:  {
-      '/proxy': {
-        target: 'https://dic.pixiv.net/api/',  // 外部接口地址
+      '/pv': {
+        target: 'https://dic.pixiv.net/api/',  // 查询阅览量
         // secure: true, // false为http访问，true为https访问
         changeOrigin: true,   // 是否允许跨域
         pathRewrite: {  // 重写路径 目的是把/proxy 开始的接口重写 
-          '^/proxy': ''
+          '^/pv': ''
+        }
+      },
+      '/tag': {
+        target: 'https://www.pixiv.net/ajax/search/',  // 查询tag
+        // secure: true, // false为http访问，true为https访问
+        changeOrigin: true,   // 是否允许跨域
+        pathRewrite: {  // 重写路径 目的是把/proxy 开始的接口重写 
+          '^/tag': ''
         }
       },
     },

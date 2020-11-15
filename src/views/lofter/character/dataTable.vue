@@ -2,6 +2,7 @@
   <div>
     <button @click="sortBySum()" style="margin-right: 20px;">按最新总量排序</button>
     <button @click="sortByAdd()">按增量排序</button>
+    <br></br>
     <table v-if="tableData">
       <!-- <caption>Monthly savings</caption> -->
       <thead>
@@ -11,6 +12,9 @@
           <th v-for="date in getDateArr(tableData[0])">{{ date }}</th>
           <td v-show="isShowAdd" style="font-size: 12px;background-color:#eeeeee;">
             增量
+          </td>
+          <td v-show="isShowAdd" style="font-size: 12px;background-color:#eeeeee;">
+            日均
           </td>
         </tr>
       </thead>
@@ -27,6 +31,9 @@
           <td v-show="isShowAdd" style="background-color:#eeeeee;">
             {{ item[add.endDay] - item[add.startDay] }}
           </td>
+          <td v-show="isShowAdd" style="background-color:#eeeeee;">
+            {{ parseInt((item[add.endDay] - item[add.startDay])/7) }}
+          </td>
         </tr>
       </tbody>
     </table>
@@ -40,7 +47,8 @@ export default {
   props: ['tableData'],
   data() {
     return {
-      isShowAdd: true,
+      // isShowAdd: true,
+      isShowAdd: false,
       add: {
         startDay: '11/07',
         endDay: '11/14'
@@ -53,14 +61,14 @@ export default {
     getDateArr(metadata) {
       let dateArr = Object.keys(metadata)
       dateArr.remove('Tag')
-      dateArr.remove('本周增量')
+      dateArr.remove('add')
 
       // 根据开始日期截取
       // let startDay = '11/07'
       // dateArr.splice(dateArr.findIndex((i) => i == startDay) + 1)
 
       // 根据日期个数截取
-      dateArr.splice(2)
+      // dateArr.splice(2)
       return dateArr
     },
     sortByAdd() {

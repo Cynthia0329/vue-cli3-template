@@ -12,9 +12,11 @@
       </thead>
       <tbody>
         <tr v-for="(item, index) in tagArr">
-          <td>{{ index+1 }}</td>
+          <td>{{ index + 1 }}</td>
           <td>{{ item.tagName }}</td>
-          <td style="text-align:right"><code>{{ item.arg }}</code></td>
+          <td style="text-align: right">
+            <code>{{ item.arg }}</code>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -58,43 +60,40 @@ export default {
         '伏乙'
       ]
       let that = this
-      axios.all(tags.map(async name => await that.getTagRead(name))).then(res => {
+      axios
+        .all(tags.map(async (name) => await that.getTagRead(name)))
+        .then((res) => {
           let arr = []
           res.forEach((item, index) => {
             arr.push(this.handleData(item, tags[index]))
           })
-          arr.sort((a,b) => {
-            return b.arg-a.arg
+          arr.sort((a, b) => {
+            return b.arg - a.arg
           })
           console.log(arr)
           this.tagArr = arr
-        }
-      )
+        })
     },
     getTagRead(tagName) {
       return api.common.getTagRead(tagName)
     },
     handleData(res, tagName) {
-      // let OctArr = res[res.length - 2]
-      // let Oct_arg =
-      //   OctArr.reduce((prev, curr) => {
-      //     return prev + curr
-      //   }) / OctArr.length
-      let new_month_arr = res[res.length - 1]   // 最新一个月的阅览量数组
-      let new_week_arr = new_month_arr.splice(1, 7)  // 最新一周的阅览量数组
-      let week_arg = 
-        new_week_arr.reduce((prev, curr) => {
+      console.log(res)
+      let new_month_arr = res[res.length - 1] // 最新一个月的阅览量数组
+      let new_week_arr = new_month_arr.slice(7, 13) // 最新一周的阅览量：数组
+      let week_sum = new_week_arr.reduce((prev, curr) => {  // 最新一周的阅览量：总和
           return prev + curr
-        }) / new_week_arr.length
-        return {
-          tagName: tagName,
-          arg: parseInt(new_week_arr)
-        }
+        })
+      let week_arg = parseInt(week_sum/new_week_arr.length) // 最新一周的阅览量：平均数
+      return {
+        tagName: tagName,
+        arg: week_arg
+      }
     }
   }
 }
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-@import '../scss/index.scss'
+@import '../scss/index.scss';
 </style>

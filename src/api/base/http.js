@@ -4,7 +4,7 @@ import { Message } from 'element-ui'
 
 // 创建axios实例
 const service = axios.create({
-  baseURL: '/proxy',
+  // baseURL: '/proxy',
   // baseURL: process.env.VUE_APP_URL,
   timeout: 60000 ,  // 请求超时时间
   withCredentials:false, // 表示跨越请求时是否需要使用凭证（携带cookie）
