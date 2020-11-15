@@ -1,3 +1,23 @@
+export let tags = [
+  '五悠',
+  '虎伏',
+  '伏虎',
+  '五伏',
+  '五夏',
+  '夏五',
+  '宿伏',
+  '七五',
+  '宿虎',
+  '五棘',
+  '五七',
+  '乙五',
+  '悠五',
+  '七虎',
+  '伏五',
+  '虎宿',
+  '伏乙'
+]
+
 export let range_arr = [  // 动画每集播出后的时间
   {
     word: '1',
@@ -245,5 +265,5 @@ export let pvTest = [
 import pv from './pv'
 
 export {
-  pv
+  pv,
 }

@@ -1,20 +1,21 @@
 <template>
   <div class="content">
-    <h4>P站10月日均阅览数</h4>
-    <span>10.01-10.31</span>
+    <h4>P站每月-日均阅览数</h4>
     <table v-if="tagArr">
       <thead>
         <tr>
           <th>序号</th>
           <th>tag名字</th>
-          <th>日平均阅览数</th>
+          <th v-for="item in tagArr">{{ item.month }}月</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in tagArr">
-          <td>{{ index+1 }}</td>
-          <td>{{ item.tagName }}</td>
-          <td style="text-align:right"><code>{{ item.Oct_arg }}</code></td>
+        <tr v-for="(tag, index) in tagArr[0].list">
+          <td>{{ index + 1 }}</td>
+          <td>{{ tag.tag }}</td>
+          <td v-for="(item, idx) in tagArr" style="text-align: right">
+            <code>{{ getArg(item.list[index].arr) }}</code>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -30,66 +31,31 @@ export default {
   props: [],
   data() {
     return {
-      tagArr: null,
-      exportData: {},
-      tags: [
-        '五悠',
-        '虎伏',
-        '伏虎',
-        '五伏',
-        '五夏',
-        '夏五',
-        '宿伏',
-        '七五',
-        '宿虎',
-        '五棘',
-        '五七',
-        '乙五',
-        '悠五',
-        '七虎',
-        '伏五',
-        '虎宿',
-        '伏乙'
-      ]
+      tagArr: null
     }
   },
   mounted() {
-    this.promiseAll()
+    this.tagArr = api.mock.pv
+    console.log(this.tagArr)
   },
   methods: {
-    async promiseAll() {
-      let that = this
-      axios.all(this.tags.map(async name => await that.getTagRead(name))).then(res => {
-          let arr = []
-          res.forEach((item, index) => {
-            arr.push(this.handleData(item, this.tags[index]))
-          })
-          arr.sort((a,b) => {
-            return b.Oct_arg-a.Oct_arg
-          })
-          console.log(arr)
-          this.tagArr = arr
-        }
-      )
-    },
-    getTagRead(tagName) {
-      return api.common.getTagRead(tagName)
-    },
-    handleData(res, tagName) {
-      let OctArr = res[res.length - 2]
-      let Oct_arg =
-        OctArr.reduce((prev, curr) => {
-          return prev + curr
-        }) / OctArr.length
-        return {
-          tagName: tagName,
-          Oct_arg: parseInt(Oct_arg)
-        }
+    // 计算平均数
+    getArg(oldArr) {
+      let arr = []
+      oldArr.forEach(i => {
+        if (i != 0) arr.push(i)
+      })
+      console.log(arr)
+      let sum = arr.reduce((prev, curr) => {
+        return prev + curr
+      })
+      let arg = parseInt(sum / arr.length)
+      return arg
     }
   }
 }
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-@import '../scss/index.scss'
+@import '../scss/index.scss';
 </style>

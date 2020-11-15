@@ -61,17 +61,21 @@ export default {
     backupData(data) {
       let that = this
       let month = parseInt(this.$moment().format('M'))
-      let export_month = 11
+      let export_month = 10
       let export_month_index = 5 - (month-export_month)
+      let list = []
       // 得到每个tag对应的最新6个月的数据
       this.tags.forEach((tag, index) => {
-        this.exportData[tag] = data[index][export_month_index]
+        list.push({
+          'tag': tag,
+          arr: data[index][export_month_index]
+        })
       })
       let obj = {}
       let date = this.$moment().format('YYYY-MM-DD')
       obj.name = `${export_month}月P站阅览量`
       obj.getTime = date
-      obj.list = this.exportData
+      obj.list = list
       this.exportData = obj
       let fileName= `${export_month}`
       this.downloadJson(fileName)
