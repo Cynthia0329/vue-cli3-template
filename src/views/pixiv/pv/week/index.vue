@@ -36,7 +36,22 @@ export default {
     }
   },
   mounted() {
-    this.promiseAll()
+    // this.promiseAll()
+    let pv_arr = api.mock.pvTest
+    let tt = api.mock.range_arr.map(item => {
+      let obj = {}
+      obj.name = `第${item.word}话`
+      // 获取时间范围对应的月份和时间
+      let now_month = this.$moment().format('M')
+      let start_month = this.$moment(item.rang[0]).format('M')
+      let start_day = this.$moment(item.rang[0]).format('M')
+      let end_month = this.$moment(item.rang[1]).format('M')
+      let end_day = this.$moment(item.rang[1]).format('M')
+      // 找到对应时间的pv数组
+      // pv_arr[]
+      return obj
+    })
+    console.log(tt)
   },
   methods: {
     async promiseAll() {
@@ -78,13 +93,14 @@ export default {
       return api.common.getTagRead(tagName)
     },
     handleData(res, tagName) {
-      console.log(res)
+      let now_month = new Date().getMonth() + 1
       let new_month_arr = res[res.length - 1] // 最新一个月的阅览量数组
       let new_week_arr = new_month_arr.slice(7, 13) // 最新一周的阅览量：数组
-      let week_sum = new_week_arr.reduce((prev, curr) => {  // 最新一周的阅览量：总和
-          return prev + curr
-        })
-      let week_arg = parseInt(week_sum/new_week_arr.length) // 最新一周的阅览量：平均数
+      let week_sum = new_week_arr.reduce((prev, curr) => {
+        // 最新一周的阅览量：总和
+        return prev + curr
+      })
+      let week_arg = parseInt(week_sum / new_week_arr.length) // 最新一周的阅览量：平均数
       return {
         tagName: tagName,
         arg: week_arg
