@@ -55,7 +55,7 @@ export default {
     },
     handleData(result) {
       // 选择子表
-      let metadata = result[2].sheet
+      let metadata = result[0].sheet
       console.log('所选表格元数据为：')
       console.log(metadata)
 
@@ -109,7 +109,9 @@ export default {
       })
       console.warn(chart_data.series)
       // 截取数组，选择显示的个数
-      chart_data.series.splice(8)
+      chart_data.series.splice(10)
+      // 过滤掉第一个
+      // chart_data.series = chart_data.series.slice(1,(chart_data.series.length-1))
 
       console.log('图表数据为：')
       console.log(chart_data)

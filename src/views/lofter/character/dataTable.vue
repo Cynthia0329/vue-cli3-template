@@ -3,7 +3,29 @@
     <button @click="sortBySum()" style="margin-right: 20px;">按最新总量排序</button>
     <button @click="sortByAdd()">按增量排序</button>
     <br></br>
-    <table v-if="tableData">
+    <table v-if="tableData&&!isShowAdd">
+      <!-- <caption>Monthly savings</caption> -->
+      <thead>
+        <tr>
+          <th v-for="date in getDateArr(tableData[0]).reverse()">{{ date }}</th>
+          <th style="background-color:#ffffff;">Tag</th>
+          <th style="background-color:#ffffff;">序号</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item, index) in tableData">
+          <td 
+            style="text-align: right"
+            v-for="date in getDateArr(item).reverse()"
+          >
+            <code>{{ item[date] }}</code>
+          </td>
+          <td style="background-color:#DEEBF6;">{{ item.Tag }}</td>
+          <td>{{ index + 1 }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table v-if="tableData&&isShowAdd">
       <!-- <caption>Monthly savings</caption> -->
       <thead>
         <tr>
@@ -13,7 +35,7 @@
           <td v-show="isShowAdd" style="font-size: 12px;background-color:#eeeeee;">
             增量
           </td>
-          <td v-show="isShowAdd" style="font-size: 12px;background-color:#eeeeee;">
+          <td v-show="isShowAdd&&isDayAddShow" style="font-size: 12px;background-color:#eeeeee;">
             日均
           </td>
         </tr>
@@ -31,8 +53,8 @@
           <td v-show="isShowAdd" style="background-color:#eeeeee;">
             {{ item[add.endDay] - item[add.startDay] }}
           </td>
-          <td v-show="isShowAdd" style="background-color:#eeeeee;">
-            {{ parseInt((item[add.endDay] - item[add.startDay])/7) }}
+          <td v-show="isShowAdd&&isDayAddShow" style="background-color:#eeeeee;">
+            {{ parseInt((item[add.endDay] - item[add.startDay])/2) }}
           </td>
         </tr>
       </tbody>
@@ -47,16 +69,25 @@ export default {
   props: ['tableData'],
   data() {
     return {
+      isShowAdd: true,
+      isDayAddShow: true,
       // isShowAdd: true,
-      isShowAdd: false,
       add: {
-        startDay: '11/07',
-        endDay: '11/14'
+        startDay: '11/14',
+        endDay: '11/16'
       },
+      // add: {
+      //   startDay: '11/07',
+      //   endDay: '11/14'
+      // },
       table: []
     }
   },
-  mounted() {},
+  mounted() {
+    setTimeout(()=>{
+      this.sortBySum()
+    },500)
+  },
   methods: {
     getDateArr(metadata) {
       let dateArr = Object.keys(metadata)
@@ -68,7 +99,7 @@ export default {
       // dateArr.splice(dateArr.findIndex((i) => i == startDay) + 1)
 
       // 根据日期个数截取
-      // dateArr.splice(2)
+      dateArr.splice(2)
       return dateArr
     },
     sortByAdd() {

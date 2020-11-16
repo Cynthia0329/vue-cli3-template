@@ -1,6 +1,5 @@
 <template>
-  <el-scrollbar wrap-class="scrollbar-wrapper">
-    <el-menu
+  <el-menu
       :default-active="activeMenu"
       @select="handleSelect"
       mode="vertical"
@@ -11,7 +10,6 @@
         :item="route"
       />
     </el-menu>
-  </el-scrollbar>
 </template>
 
 <script>

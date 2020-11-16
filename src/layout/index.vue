@@ -29,12 +29,16 @@ export default {
   width: 100%;
   height: 100%;
   display: flex;
+  overflow: hidden;
   &>.sider-bar {
     width: 200px;
   }
   &>.app-main {
     flex: 1;
     padding: 25px 50px;
+    max-height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
 }
 </style>

@@ -60,7 +60,9 @@ export default {
         return obj
       })
       // 截取数组，选择显示的个数
-      chart.series.splice(10)
+      chart.series.splice(11)
+      // 过滤掉第一个
+      chart.series = chart.series.slice(1,(chart.series.length-1))
       this.setOption(chart)
     },
     setOption(data) {
