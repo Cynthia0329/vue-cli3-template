@@ -7,6 +7,9 @@
       <el-tab-pane label="某个月" name="month">
         <get-month></get-month>
       </el-tab-pane>
+      <el-tab-pane label="某天" name="day">
+        <day></day>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -17,6 +20,7 @@ import axios from 'axios'
 
 import all from './all.vue'
 import getMonth from './getMonth.vue'
+import day from './day.vue'
 
 
 export default {
@@ -24,11 +28,12 @@ export default {
   components: {
     all,
     getMonth,
+    day,
   },
   props: [],
   data() {
     return {
-      activeName: 'all',
+      activeName: 'day',
     }
   },
   mounted() {},

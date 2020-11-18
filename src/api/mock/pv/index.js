@@ -11,8 +11,3 @@ export default [
     list: month_11.list,
   },
 ]
-
-// export default {
-//   '10': month_10.list,
-//   '11': month_11.list,
-// }

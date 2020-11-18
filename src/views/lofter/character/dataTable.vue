@@ -54,7 +54,7 @@
             {{ item[add.endDay] - item[add.startDay] }}
           </td>
           <td v-show="isShowAdd&&isDayAddShow" style="background-color:#eeeeee;">
-            {{ parseInt((item[add.endDay] - item[add.startDay])/2) }}
+            {{ parseInt((item[add.endDay] - item[add.startDay]) / dateInterval) }}
           </td>
         </tr>
       </tbody>
@@ -74,13 +74,21 @@ export default {
       // isShowAdd: true,
       add: {
         startDay: '11/14',
-        endDay: '11/16'
+        endDay: '11/18'
       },
       // add: {
       //   startDay: '11/07',
       //   endDay: '11/14'
       // },
       table: []
+    }
+  },
+  computed: {
+    dateInterval: function () {
+      let startDay = this.$moment(this.add.startDay)
+      let endDay = this.$moment(this.add.endDay)
+      let interval = endDay.diff(startDay, 'day')
+      return interval
     }
   },
   mounted() {

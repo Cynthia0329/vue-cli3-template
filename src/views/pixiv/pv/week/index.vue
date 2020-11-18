@@ -1,7 +1,8 @@
 <template>
   <div class="content">
     <chart v-if="tableList" :data="tableList"></chart>
-    <h4>P站-日均阅览数</h4>
+    <br>
+    <h4>P站每话-日均阅览数</h4>
     <table v-if="tagArr">
       <thead>
         <tr>

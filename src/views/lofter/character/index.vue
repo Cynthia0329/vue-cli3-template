@@ -55,7 +55,7 @@ export default {
     },
     handleData(result) {
       // 选择子表
-      let metadata = result[0].sheet
+      let metadata = result[1].sheet
       console.log('所选表格元数据为：')
       console.log(metadata)
 
