@@ -21,25 +21,6 @@ export default {
   data() {
     return {
       exportData: {},
-      tags: [
-        '五悠',
-        '虎伏',
-        '伏虎',
-        '五伏',
-        '五夏',
-        '夏五',
-        '宿伏',
-        '七五',
-        '宿虎',
-        '五棘',
-        '五七',
-        '乙五',
-        '悠五',
-        '七虎',
-        '伏五',
-        '虎宿',
-        '伏乙'
-      ]
     }
   },
   mounted() {},
@@ -47,7 +28,7 @@ export default {
     async promiseAll() {
       let that = this
       axios
-        .all(this.tags.map(async (name) => await that.getTagRead(name)))
+        .all(api.mock.tags.map(async (name) => await that.getTagRead(name)))
         .then((res) => {
           let arr = []
           this.backupData(res)
@@ -61,11 +42,11 @@ export default {
     backupData(data) {
       let that = this
       let month = parseInt(this.$moment().format('M'))
-      let export_month = 10
+      let export_month = 11
       let export_month_index = 5 - (month-export_month)
       let list = []
       // 得到每个tag对应的最新6个月的数据
-      this.tags.forEach((tag, index) => {
+      api.mock.tags.forEach((tag, index) => {
         list.push({
           'tag': tag,
           arr: data[index][export_month_index]

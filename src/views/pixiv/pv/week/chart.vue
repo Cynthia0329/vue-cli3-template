@@ -24,16 +24,14 @@ export default {
   },
   methods: {
     handleData() {
-      console.log(this.data)
       let chart = {}
       chart.xAxis = this.data[0].list.map((i) => `第${i.word}话`)
-      console.log(chart.xAxis)
 
       // series数据
       chart.series = this.data.map((i) => {
         let arr = chart.xAxis.map((key, index) => {
-          // console.log((chart.xAxis.length-1))
-          if (index === (chart.xAxis.length-1)) {
+          // 设置最后一列显示label
+          if (index === chart.xAxis.length - 1) {
             return {
               value: i.list[index].arg,
               label: {
@@ -42,7 +40,9 @@ export default {
                 position: 'right'
               }
             }
-          } else {
+          }
+          // 去除为0的元素
+          else if (i.list[index].arg != 0) {
             return {
               value: i.list[index].arg
             }
@@ -60,9 +60,9 @@ export default {
         return obj
       })
       // 截取数组，选择显示的个数
-      chart.series.splice(11)
+      chart.series.splice(12)
       // 过滤掉第一个
-      chart.series = chart.series.slice(1,(chart.series.length-1))
+      chart.series = chart.series.slice(1, chart.series.length - 1)
       this.setOption(chart)
     },
     setOption(data) {
@@ -108,7 +108,7 @@ export default {
             color: '#999999',
             fontSize: 8,
             interval: 0,
-            rotate: 45,
+            rotate: 45
           },
           splitLine: {
             show: false

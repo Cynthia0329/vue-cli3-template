@@ -109,9 +109,9 @@ export default {
       })
       console.warn(chart_data.series)
       // 截取数组，选择显示的个数
-      chart_data.series.splice(10)
+      // chart_data.series.splice(8)
       // 过滤掉第一个
-      // chart_data.series = chart_data.series.slice(1,(chart_data.series.length-1))
+      // chart_data.series = chart_data.series.slice(1,(chart_data.series.length))
 
       console.log('图表数据为：')
       console.log(chart_data)

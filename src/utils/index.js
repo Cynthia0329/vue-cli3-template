@@ -38,3 +38,12 @@ export function NumNorm(val, unit='') {  // 数值通用规范：对于数值非
     return "--"
   }
 }
+
+// 移除数组中为0的元素
+export function remove0(oldArr) {
+  let arr = []
+  oldArr.forEach((i) => {
+    if (i != 0) arr.push(i)
+  })
+  return arr
+}

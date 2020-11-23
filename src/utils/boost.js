@@ -51,6 +51,6 @@ Array.prototype.intersection = function(arr) {
 }
 
 // 返回两个数组的重叠值数组（交集）
-Array.prototype.interArr= function(arr) {
+Array.prototype.interArr = function(arr) {
   return this.filter(item=>arr.includes(item))
 }
